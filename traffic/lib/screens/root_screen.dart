@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:traffic/screens/admin_screen.dart';
 import 'package:traffic/screens/login_screen.dart';
+import 'package:traffic/screens/register_screen.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({Key? key}) : super(key: key);
@@ -21,8 +23,9 @@ class _RootScreenState extends State<RootScreen> {
         onTap: () {},
         child: Ink.image(
           image: const AssetImage('assets/Hawk_eye_facebook.jpg'),
-          height: 200,
-          width: 200,
+          height: 250,
+          width: 250,
+
           fit: BoxFit.cover,
         ),
       ),
@@ -52,7 +55,9 @@ class _RootScreenState extends State<RootScreen> {
       child: MaterialButton(
         padding: const EdgeInsets.all(20.0),
         minWidth: double.infinity,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> RegistrationScreen()));
+        },
         child: const Text(
           "Sign Up",
           textAlign: TextAlign.center,
@@ -68,7 +73,9 @@ class _RootScreenState extends State<RootScreen> {
       child: MaterialButton(
         padding: const EdgeInsets.all(20.0),
         minWidth: double.infinity,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AdminScreen()));
+        },
         child: const Text(
           "Admin",
           textAlign: TextAlign.center,
@@ -90,7 +97,7 @@ class _RootScreenState extends State<RootScreen> {
               children: <Widget>[
                 _logo,
                 const SizedBox(
-                  height: 30,
+                  height: 40,
                 ),
                 _login,
                 const SizedBox(
