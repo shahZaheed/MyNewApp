@@ -23,9 +23,8 @@ class _RootScreenState extends State<RootScreen> {
         onTap: () {},
         child: Ink.image(
           image: const AssetImage('assets/Hawk_eye_facebook.jpg'),
-          height: 250,
-          width: 250,
-
+          height: 200,
+          width: 200,
           fit: BoxFit.cover,
         ),
       ),
@@ -56,7 +55,8 @@ class _RootScreenState extends State<RootScreen> {
         padding: const EdgeInsets.all(20.0),
         minWidth: double.infinity,
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> RegistrationScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => RegistrationScreen()));
         },
         child: const Text(
           "Sign Up",
@@ -74,7 +74,8 @@ class _RootScreenState extends State<RootScreen> {
         padding: const EdgeInsets.all(20.0),
         minWidth: double.infinity,
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AdminScreen()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AdminScreen()));
         },
         child: const Text(
           "Admin",
@@ -97,7 +98,7 @@ class _RootScreenState extends State<RootScreen> {
               children: <Widget>[
                 _logo,
                 const SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 _login,
                 const SizedBox(
