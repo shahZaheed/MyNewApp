@@ -14,6 +14,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final TextEditingController firstNameController = new TextEditingController();
     final TextEditingController lastNameController = new TextEditingController();
     final TextEditingController emailController = new TextEditingController();
+    final TextEditingController phoneController = new TextEditingController();
     final TextEditingController vehicleNumberController = new TextEditingController();
     final TextEditingController licenseNumberController = new TextEditingController();
     final DateTimeRange licenseExpireDateController =new DateTimeRange(start: DateTime(1900) , end:DateTime(2100) );
@@ -61,6 +62,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
 
     );
+
+    //phone field
+    final phoneField = TextFormField(autofocus:  false,
+      controller: phoneController,
+
+      //obscureText: true,
+      //validator: (){},
+      onSaved:(value){
+        passwordController.text = value!;
+      } ,
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.call),
+        contentPadding: EdgeInsets.fromLTRB(25, 20, 25, 20),
+        hintText: "Phone Number",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+
+      ),
+
+    );
+
 
     //emailField
     final emailField = TextFormField(autofocus:  false,
@@ -209,18 +233,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
         backgroundColor: Colors.white,
         body: Center(
+
           child: SingleChildScrollView(
+
             child: Container(
+              //color: const Color.fromARGB(20, 3, 43, 77),
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Form(
+
                   key: _formKey,
                   child:Column(
                     children: <Widget>[
                       SizedBox(
                         height: 200,
-                        child: Image.asset('assets/Hawk_eye_facebook.jpg',fit: BoxFit.contain,),
-
+                        //child: Image.asset('assets/Hawk_eye_facebook.jpg',fit: BoxFit.contain,),
+                        child:Icon(Icons.local_police,size: 200,color: const Color.fromARGB(255, 3, 43, 77),) ,
                       ),
                       SizedBox(height: 25,),
                       firstNameField,
@@ -228,6 +256,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       lastNameField,
                       SizedBox(height: 25,),
                       emailField,
+                      SizedBox(height: 25,),
+                      phoneField,
                       SizedBox(height: 25,),
                       vehicleField,
                       SizedBox(height: 25,),
@@ -238,7 +268,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       confirmPasswordField,
                       SizedBox(height: 25,),
                       signUpButton,
-                      SizedBox(height: 40,),
+                      SizedBox(height: 15,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("Back to login",style: TextStyle(fontWeight: FontWeight.w400,color:Colors.blueAccent, ),),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30,),
+
 
                     ],
                   ) ,

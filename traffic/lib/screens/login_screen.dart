@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:traffic/screens/home_screen.dart';
 import 'package:traffic/screens/register_screen.dart';
 import 'package:traffic/screens/root_screen.dart';
 
@@ -82,7 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        onPressed: (){},
+        onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+        },
         minWidth: MediaQuery.of(context).size.width,
         child: const Text("Login", textAlign: TextAlign.center,
         style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.bold),),
@@ -92,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
     return Scaffold(
-        appBar: AppBar(
+       /* appBar: AppBar(
           /* title: const Text(" Admin Login" ,style:
             TextStyle(
               color: const Color.fromARGB(255, 3, 43, 77),
@@ -107,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
           ),
           //backgroundColor:const Color.fromARGB(255, 3, 43, 77),
-        ),
+        ),*/
         backgroundColor: Colors.white,
         body: Center(
           child: SingleChildScrollView(
@@ -125,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: 25,
                         child: Text("User Login",
-                          style: TextStyle( color: Colors.blueAccent, fontWeight: FontWeight.w600),),
+                          style: TextStyle( color: Colors.black54, fontWeight: FontWeight.w600),),
                       ),
                        emailField,
                       SizedBox(height: 25,), passwordField,
