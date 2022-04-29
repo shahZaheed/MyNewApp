@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -7,28 +8,33 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController firstNameController = new TextEditingController();
+  final TextEditingController lastNameController = new TextEditingController();
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController phoneController = new TextEditingController();
+  final TextEditingController vehicleNumberController =
+      new TextEditingController();
+  final TextEditingController licenseNumberController =
+      new TextEditingController();
+  final DateTimeRange licenseExpireDateController =
+      new DateTimeRange(start: DateTime(1900), end: DateTime(2100));
+  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController confirmPasswordController =
+      new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-
-    final TextEditingController firstNameController = new TextEditingController();
-    final TextEditingController lastNameController = new TextEditingController();
-    final TextEditingController emailController = new TextEditingController();
-    final TextEditingController phoneController = new TextEditingController();
-    final TextEditingController vehicleNumberController = new TextEditingController();
-    final TextEditingController licenseNumberController = new TextEditingController();
-    final DateTimeRange licenseExpireDateController =new DateTimeRange(start: DateTime(1900) , end:DateTime(2100) );
-    final TextEditingController passwordController = new TextEditingController();
-    final TextEditingController confirmPasswordController = new TextEditingController();
-
     //firstNameField
-    final firstNameField = TextFormField(autofocus:  false,
+    final firstNameField = TextFormField(
+      autofocus: false,
       controller: firstNameController,
       //obscureText: true,
       //validator: (){},
-      onSaved:(value){
+      onSaved: (value) {
         firstNameController.text = value!;
-      } ,
+      },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.account_circle),
@@ -37,19 +43,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-
       ),
-
     );
 
     //lastNameField
-    final lastNameField =TextFormField(autofocus:  false,
+    final lastNameField = TextFormField(
+      autofocus: false,
       controller: lastNameController,
       //obscureText: true,
       //validator: (){},
-      onSaved:(value){
+      onSaved: (value) {
         lastNameController.text = value!;
-      } ,
+      },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.account_circle),
@@ -58,20 +63,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-
       ),
-
     );
 
     //phone field
-    final phoneField = TextFormField(autofocus:  false,
+    final phoneField = TextFormField(
+      autofocus: false,
       controller: phoneController,
 
       //obscureText: true,
       //validator: (){},
-      onSaved:(value){
+      onSaved: (value) {
         passwordController.text = value!;
-      } ,
+      },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.call),
@@ -80,20 +84,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-
       ),
-
     );
 
-
     //emailField
-    final emailField = TextFormField(autofocus:  false,
+    final emailField = TextFormField(
+      autofocus: false,
       controller: emailController,
       obscureText: true,
       //validator: (){},
-      onSaved:(value){
+      onSaved: (value) {
         emailController.text = value!;
-      } ,
+      },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.mail),
@@ -102,19 +104,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-
       ),
-
     );
 
     // vehicleField
-    final vehicleField = TextFormField(autofocus:  false,
+    final vehicleField = TextFormField(
+      autofocus: false,
       controller: vehicleNumberController,
       obscureText: true,
       //validator: (){},
-      onSaved:(value){
+      onSaved: (value) {
         vehicleNumberController.text = value!;
-      } ,
+      },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.bus_alert),
@@ -123,19 +124,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-
       ),
-
     );
 
     // licenseField
-    final licenseField = TextFormField(autofocus:  false,
+    final licenseField = TextFormField(
+      autofocus: false,
       controller: licenseNumberController,
       obscureText: true,
       //validator: (){},
-      onSaved:(value){
+      onSaved: (value) {
         licenseNumberController.text = value!;
-      } ,
+      },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.local_police),
@@ -144,20 +144,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-
       ),
-
     );
 
     // passwordField
     final passwordField = TextFormField(
-      autofocus:  false,
+      autofocus: false,
       controller: passwordController,
       obscureText: true,
       //validator: (){},
-      onSaved:(value){
+      onSaved: (value) {
         passwordController.text = value!;
-      } ,
+      },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.vpn_key),
@@ -166,23 +164,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-
       ),
-
     );
 
     //confirmPasswordField
     final confirmPasswordField = TextFormField(
-
       autofocus: false,
       controller: confirmPasswordController,
       obscureText: true,
       //validator: (){},
-      onSaved: (value){
-        confirmPasswordController.text=value!;
-
+      onSaved: (value) {
+        confirmPasswordController.text = value!;
       },
-      textInputAction:  TextInputAction.done,
+      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.vpn_key),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -190,29 +184,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-
       ),
-
     );
 
     //signUp button
-    final signUpButton =Material(
+    final signUpButton = Material(
       elevation: 10,
-      color:  const Color.fromARGB(255, 2, 45, 80),
+      color: const Color.fromARGB(255, 2, 45, 80),
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        onPressed: (){},
+        onPressed: () {},
         minWidth: MediaQuery.of(context).size.width,
-        child: const Text("SignUp", textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.bold),),
+        child: const Text(
+          "SignUp",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
     );
-
-
-
-
-
 
     return Scaffold(
         appBar: AppBar(
@@ -223,8 +214,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back,color: Color.fromARGB(255, 3, 43, 77) ,),
-            onPressed: (){
+            icon: Icon(
+              Icons.arrow_back,
+              color: Color.fromARGB(255, 3, 43, 77),
+            ),
+            onPressed: () {
               //Navigator.push(context, MaterialPageRoute(builder: (context) => RootScreen()));
               Navigator.of(context).pop();
             },
@@ -233,65 +227,89 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
         backgroundColor: Colors.white,
         body: Center(
-
           child: SingleChildScrollView(
-
             child: Container(
               //color: const Color.fromARGB(20, 3, 43, 77),
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Form(
-
                   key: _formKey,
-                  child:Column(
+                  child: Column(
                     children: <Widget>[
                       SizedBox(
                         height: 200,
                         //child: Image.asset('assets/Hawk_eye_facebook.jpg',fit: BoxFit.contain,),
-                        child:Icon(Icons.local_police,size: 200,color: const Color.fromARGB(255, 3, 43, 77),) ,
+                        child: Icon(
+                          Icons.local_police,
+                          size: 200,
+                          color: const Color.fromARGB(255, 3, 43, 77),
+                        ),
                       ),
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       firstNameField,
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       lastNameField,
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       emailField,
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       phoneField,
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       vehicleField,
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       licenseField,
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       passwordField,
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       confirmPasswordField,
-                      SizedBox(height: 25,),
+                      SizedBox(
+                        height: 25,
+                      ),
                       signUpButton,
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text("Back to login",style: TextStyle(fontWeight: FontWeight.w400,color:Colors.blueAccent, ),),
+                            child: Text(
+                              "Back to login",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.blueAccent,
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 30,),
-
-
+                      SizedBox(
+                        height: 30,
+                      ),
                     ],
-                  ) ,
+                  ),
                 ),
               ),
             ),
-
           ),
-
         ));
   }
 }
-

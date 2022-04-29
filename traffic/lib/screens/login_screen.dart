@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:traffic/screens/home_screen.dart';
 import 'package:traffic/screens/register_screen.dart';
 import 'package:traffic/screens/root_screen.dart';
@@ -11,14 +13,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  //controllers
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  //firebase auth
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
-    final _formKey =GlobalKey<FormState>();
-
-    final TextEditingController emailController = new TextEditingController();
-    final TextEditingController passwordController = new  TextEditingController();
-
-
     final _logo = Material(
       shape: const CircleBorder(),
       child: InkWell(
@@ -37,11 +42,18 @@ class _LoginScreenState extends State<LoginScreen> {
       autofocus: false,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
-      //validator: (){},
-      onSaved: (value)
-      {
-        emailController.text=value!;
-
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Please enter your Email");
+        }
+        //regex
+        if (!RegExp("^[a-zA-z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
+          return ("Please enter valid email");
+        }
+        return null;
+      },
+      onSaved: (value) {
+        emailController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -50,20 +62,25 @@ class _LoginScreenState extends State<LoginScreen> {
         hintText: 'Email',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-
         ),
       ),
-
     );
     final passwordField = TextFormField(
-
       autofocus: false,
       obscureText: true,
       controller: passwordController,
-      //validator:(){},
-      onSaved: (value){
-        passwordController.text=value!;
-
+      validator: (value) {
+        RegExp regex = RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return "Please enter your password";
+        }
+        if (!regex.hasMatch(value)) {
+          return "Enter valid password(min. 6 character)";
+        }
+        return null;
+      },
+      onSaved: (value) {
+        passwordController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
@@ -74,28 +91,31 @@ class _LoginScreenState extends State<LoginScreen> {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-
     );
 
-    final loginBtn=Material(
+    final loginBtn = Material(
       elevation: 10,
-      color:  const Color.fromARGB(255, 2, 45, 80),
+      color: const Color.fromARGB(255, 2, 45, 80),
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+        onPressed: () {
+          //Navigator.pushReplacement(
+          //context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          signIn(emailController.text, passwordController.text);
         },
         minWidth: MediaQuery.of(context).size.width,
-        child: const Text("Login", textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.bold),),
+        child: const Text(
+          "Login",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
     );
 
-
-
     return Scaffold(
-       /* appBar: AppBar(
+        /* appBar: AppBar(
           /* title: const Text(" Admin Login" ,style:
             TextStyle(
               color: const Color.fromARGB(255, 3, 43, 77),
@@ -119,52 +139,80 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(30.0),
                 child: Form(
                   key: _formKey,
-                  child:Column(
+                  child: Column(
                     children: <Widget>[
                       SizedBox(
                         height: 200,
-                        child: Image.asset('assets/Hawk_eye_facebook.jpg',fit: BoxFit.contain,),
-
+                        child: Image.asset(
+                          'assets/Hawk_eye_facebook.jpg',
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                      SizedBox(height: 25,
-                        child: Text("User Login",
-                          style: TextStyle( color: Colors.black54, fontWeight: FontWeight.w600),),
+                      SizedBox(
+                        height: 25,
+                        child: Text(
+                          "User Login",
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
-                       emailField,
-                      SizedBox(height: 25,), passwordField,
-                      SizedBox(height: 25,), loginBtn,
-                      SizedBox(height: 20,),
+                      emailField,
+                      SizedBox(
+                        height: 25,
+                      ),
+                      passwordField,
+                      SizedBox(
+                        height: 25,
+                      ),
+                      loginBtn,
+                      SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Don't have an account? "),
                           GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          RegistrationScreen()));
                             },
-                            child: Text("SignUp",
-
-                            style: TextStyle(
-                                color:Colors.blueAccent,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15),
+                            child: Text(
+                              "SignUp",
+                              style: TextStyle(
+                                  color: Colors.blueAccent,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15),
                             ),
-
-
                           ),
-
                         ],
-
                       ),
-
                     ],
-                  ) ,
+                  ),
                 ),
               ),
             ),
-
           ),
-
         ));
+  }
+
+  //singIn fun
+  void signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                Fluttertoast.showToast(msg: "Login successful"),
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: ((context) => HomeScreen()))), //Push
+              })
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    }
   }
 }
