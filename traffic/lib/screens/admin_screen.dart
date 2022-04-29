@@ -1,4 +1,11 @@
+//import 'dart:html';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:traffic/screens/admin_home_screen.dart';
+import 'package:traffic/screens/home_screen.dart';
+import 'package:traffic/screens/register_screen.dart';
 import 'package:traffic/screens/root_screen.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -13,6 +20,9 @@ class _AdminScreenState extends State<AdminScreen> {
 
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
+
+  //firebase auth
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +44,22 @@ class _AdminScreenState extends State<AdminScreen> {
       autofocus: false,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
-      //validator: (){},
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Please enter your Email");
+        }
+        //regex
+        if (!RegExp("^[a-zA-z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
+          return ("Please enter valid email");
+        }
+        return null;
+      },
       onSaved: (value) {
         emailController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.local_activity),
+        prefixIcon: Icon(Icons.mail_rounded),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: 'Email',
         border: OutlineInputBorder(
@@ -52,7 +71,16 @@ class _AdminScreenState extends State<AdminScreen> {
       autofocus: false,
       obscureText: true,
       controller: passwordController,
-      //validator:(){},
+      validator: (value) {
+        RegExp regex = RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return "Please enter your password";
+        }
+        if (!regex.hasMatch(value)) {
+          return "Enter valid password(min. 6 character)";
+        }
+        return null;
+      },
       onSaved: (value) {
         passwordController.text = value!;
       },
@@ -73,7 +101,11 @@ class _AdminScreenState extends State<AdminScreen> {
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        onPressed: () {},
+        onPressed: () {
+          //Navigator.pushReplacement(
+          //context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          signIn(emailController.text, passwordController.text);
+        },
         minWidth: MediaQuery.of(context).size.width,
         child: const Text(
           "Login",
@@ -167,5 +199,31 @@ class _AdminScreenState extends State<AdminScreen> {
             ),
           ),
         ));
+  }
+
+  //singIn fun
+  void signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      /*final _userList =
+          await _auth.fetchSignInMethodsForEmail(emailController.text);
+
+        if (_userList.isEmpty) {
+          Fluttertoast.showToast(msg: "Please Register");
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: ((context) => RegistrationScreen())));
+
+        }*/
+      try {
+        await _auth
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((uid) => {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: ((context) => AdminHomeScreen()))),
+          Fluttertoast.showToast(msg: "Login successful"),
+        });
+      } catch (error) {
+        Fluttertoast.showToast(msg: "Invalid credentials");
+      }
+    }
   }
 }
