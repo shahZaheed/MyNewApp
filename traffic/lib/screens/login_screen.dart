@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -203,16 +205,26 @@ class _LoginScreenState extends State<LoginScreen> {
   //singIn fun
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
-      await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-                Fluttertoast.showToast(msg: "Login successful"),
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: ((context) => HomeScreen()))), //Push
-              })
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.message);
-      });
+      /*final _userList = 
+          await _auth.fetchSignInMethodsForEmail(emailController.text);
+        
+        if (_userList.isEmpty) {
+          Fluttertoast.showToast(msg: "Please Register");
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: ((context) => RegistrationScreen())));
+          
+        }*/
+      try {
+        await _auth
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((uid) => {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: ((context) => HomeScreen()))),
+                  Fluttertoast.showToast(msg: "Login successful"),
+                });
+      } catch (error) {
+        Fluttertoast.showToast(msg: "Please Register");
+      }
     }
   }
 }

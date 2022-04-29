@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:traffic/model/user_model.dart';
+import 'package:traffic/screens/home_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -9,6 +14,7 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
 
   final TextEditingController firstNameController = new TextEditingController();
   final TextEditingController lastNameController = new TextEditingController();
@@ -31,7 +37,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       autofocus: false,
       controller: firstNameController,
       //obscureText: true,
-      //validator: (){},
+      validator: (value) {
+        RegExp regex = RegExp(r'^.{3,}$');
+        if (value!.isEmpty) {
+          return "Please enter your name";
+        }
+        if (!regex.hasMatch(value)) {
+          return "Enter valid name(min. 3 character)";
+        }
+        return null;
+      },
       onSaved: (value) {
         firstNameController.text = value!;
       },
@@ -51,7 +66,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       autofocus: false,
       controller: lastNameController,
       //obscureText: true,
-      //validator: (){},
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Please enter your last name";
+        }
+        return null;
+      },
       onSaved: (value) {
         lastNameController.text = value!;
       },
@@ -72,7 +92,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       controller: phoneController,
 
       //obscureText: true,
-      //validator: (){},
+      validator: (value) {
+        RegExp regex = RegExp(r'^.{10,}$');
+        RegExp regex1 = RegExp('[0-9]');
+        if (value!.isEmpty) {
+          return "Please enter your phone number";
+        }
+        if (!regex.hasMatch(value)) {
+          return "Enter 10 digit number";
+        }
+        if (!regex1.hasMatch(value)) {
+          return "Invalid Number";
+        }
+        return null;
+      },
       onSaved: (value) {
         passwordController.text = value!;
       },
@@ -91,8 +124,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final emailField = TextFormField(
       autofocus: false,
       controller: emailController,
-      obscureText: true,
-      //validator: (){},
+      //obscureText: true,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Please enter your Email");
+        }
+        //regex
+        if (!RegExp("^[a-zA-z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
+          return ("Please enter valid email");
+        }
+        return null;
+      },
       onSaved: (value) {
         emailController.text = value!;
       },
@@ -111,8 +153,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final vehicleField = TextFormField(
       autofocus: false,
       controller: vehicleNumberController,
-      obscureText: true,
-      //validator: (){},
+      //obscureText: true,
+      validator: (value) {
+        //RegExp regex = RegExp(r'^.{10,}$');
+        //RegExp regex1 = RegExp('[0-9]');
+        if (value!.isEmpty) {
+          return "Enter your Vehicle number";
+        }
+
+        return null;
+      },
       onSaved: (value) {
         vehicleNumberController.text = value!;
       },
@@ -131,8 +181,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final licenseField = TextFormField(
       autofocus: false,
       controller: licenseNumberController,
-      obscureText: true,
-      //validator: (){},
+      //obscureText: true,
+      validator: (value) {
+        //RegExp regex = RegExp(r'^.{10,}$');
+        //RegExp regex1 = RegExp('[0-9]');
+        if (value!.isEmpty) {
+          return "Enter your License Number";
+        }
+
+        return null;
+      },
       onSaved: (value) {
         licenseNumberController.text = value!;
       },
@@ -152,7 +210,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       autofocus: false,
       controller: passwordController,
       obscureText: true,
-      //validator: (){},
+      validator: (value) {
+        RegExp regex = RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return "Please enter your password";
+        }
+        if (!regex.hasMatch(value)) {
+          return "Enter valid password(min. 6 character)";
+        }
+        return null;
+      },
       onSaved: (value) {
         passwordController.text = value!;
       },
@@ -172,7 +239,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       autofocus: false,
       controller: confirmPasswordController,
       obscureText: true,
-      //validator: (){},
+      validator: (value) {
+        if (confirmPasswordController.text != passwordController.text) {
+          return "Password doesn't match";
+        }
+        return null;
+      },
       onSaved: (value) {
         confirmPasswordController.text = value!;
       },
@@ -194,7 +266,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        onPressed: () {},
+        onPressed: () {
+          signUp(emailController.text, passwordController.text);
+        },
         minWidth: MediaQuery.of(context).size.width,
         child: const Text(
           "SignUp",
@@ -311,5 +385,47 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
           ),
         ));
+  }
+
+  //signUp
+  void signUp(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => {
+                postDetailsToFirestore(),
+              })
+          .catchError((e) {
+        Fluttertoast.showToast(msg: "Invalid details");
+      });
+    }
+  }
+
+  void postDetailsToFirestore() async {
+    // calling our firestore
+    //calling our user model
+    // sending this values
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+
+    //writing all the values
+    UserModel userModel = UserModel();
+    userModel.uid = user!.uid;
+    userModel.firstName = firstNameController.text;
+    userModel.lastName = lastNameController.text;
+    userModel.emailId = user.email;
+    userModel.phoneNumber = phoneController.text;
+    userModel.vehicleNumber = vehicleNumberController.text;
+    userModel.licenseNumber = licenseNumberController.text;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
+    Fluttertoast.showToast(msg: "Account created successfully..");
+    Navigator.pushAndRemoveUntil(
+        (context),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false);
   }
 }
