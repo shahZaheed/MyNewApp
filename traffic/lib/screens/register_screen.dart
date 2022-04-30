@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:traffic/model/user_model.dart';
 import 'package:traffic/screens/home_screen.dart';
-
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -32,6 +31,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    Size size = MediaQuery
+        .of(context)
+        .size;
     //firstNameField
     final firstNameField = TextFormField(
       autofocus: false,
@@ -52,11 +55,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.account_circle),
+        prefixIcon: Icon(Icons.account_circle,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "First Name",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -77,11 +81,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.account_circle),
+        prefixIcon: Icon(Icons.account_circle,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Last Name",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -111,11 +116,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.call),
+        prefixIcon: Icon(Icons.call,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(25, 20, 25, 20),
         hintText: "Phone Number",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -140,11 +146,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
+        prefixIcon: Icon(Icons.mail,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Email",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -168,11 +175,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.bus_alert),
+        prefixIcon: Icon(Icons.bus_alert,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Vehicle Number",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -196,11 +204,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.local_police),
+        prefixIcon: Icon(Icons.local_police,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "License Number",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -225,11 +234,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.vpn_key),
+        prefixIcon: Icon(Icons.vpn_key,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Password",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -250,11 +260,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.vpn_key),
+        prefixIcon: Icon(Icons.vpn_key,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Confirm Password",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -262,7 +273,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     //signUp button
     final signUpButton = Material(
       elevation: 10,
-      color: const Color.fromARGB(255, 2, 45, 80),
+      color: Color(0xA3CC02D8),
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -290,7 +301,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: Color.fromARGB(255, 3, 43, 77),
+              color: Color(0xA3CC02D8),
             ),
             onPressed: () {
               //Navigator.push(context, MaterialPageRoute(builder: (context) => RootScreen()));
@@ -309,8 +320,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(
+                      /*SizedBox(
                         height: 200,
                         //child: Image.asset('assets/Hawk_eye_facebook.jpg',fit: BoxFit.contain,),
                         child: Icon(
@@ -318,13 +330,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           size: 200,
                           color: const Color.fromARGB(255, 3, 43, 77),
                         ),
-                      ),
+                      ),*/
+                      Image.asset('assets/svgimages/noparking.jpg',height: size.height*0.35,),
+
                       SizedBox(
-                        height: 25,
+                        height: 10,
                       ),
                       firstNameField,
                       SizedBox(
-                        height: 25,
+                        height: 10,
                       ),
                       lastNameField,
                       SizedBox(

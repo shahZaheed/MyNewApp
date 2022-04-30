@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:traffic/screens/home_screen.dart';
+import 'package:traffic/screens/newroot_background.dart';
 import 'package:traffic/screens/register_screen.dart';
 import 'package:traffic/screens/root_screen.dart';
+
+import 'loginbackground.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,6 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery
+        .of(context)
+        .size;
     final _logo = Material(
       shape: const CircleBorder(),
       child: InkWell(
@@ -59,11 +65,14 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail_rounded),
+
+        prefixIcon: Icon(Icons.mail_rounded,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: 'Email',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
@@ -86,18 +95,20 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.vpn_key),
+        prefixIcon: Icon(Icons.vpn_key,color: Color(0xA3CC02D8),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: 'Password',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
       ),
     );
 
     final loginBtn = Material(
       elevation: 10,
-      color: const Color.fromARGB(255, 2, 45, 80),
+      color: Color(0xA3CC02D8),
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -136,27 +147,23 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white,
         body: Center(
           child: SingleChildScrollView(
-            child: Container(
+            child: LoginBackground(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(
-                        height: 200,
-                        child: Image.asset(
-                          'assets/Hawk_eye_facebook.jpg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
+                      Image.asset('assets/svgimages/user.png',height: size.height*0.35,),
+
                       SizedBox(
                         height: 25,
                         child: Text(
                           "User Login",
                           style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w600),
+                              color: Color(0xA3CC02D8),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       emailField,

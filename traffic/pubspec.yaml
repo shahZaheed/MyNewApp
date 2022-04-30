@@ -69,7 +69,20 @@ flutter:
     - assets/svgimages/n2.png
     - assets/svgimages/n3.png
     - assets/svgimages/n4.png
-    
+    - assets/svgimages/top.PNG
+    - - assets/svgimages/car.jpg
+    - assets/svgimages/twopeople.jpg
+    - assets/svgimages/noparking.jpg
+    - assets/svgimages/2people.jpg
+    - assets/svgimages/police.PNG
+    - assets/svgimages/user.png
+
+
+
+
+
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
