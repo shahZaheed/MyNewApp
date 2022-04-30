@@ -58,6 +58,19 @@ flutter:
   assets:
     - assets/logo.png
     - assets/Hawk_eye_facebook.jpg
+    - assets/svgimages/c1.png
+    - assets/svgimages/c2.png
+    - assets/svgimages/c3.png
+    - assets/svgimages/c4.png
+    - assets/svgimages/c5.png
+    - assets/svgimages/s11.png
+    - assets/svgimages/s2.jpg
+    - assets/svgimages/n1.jpg
+    - assets/svgimages/n2.png
+    - assets/svgimages/n3.png
+    - assets/svgimages/n4.png
+    
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
