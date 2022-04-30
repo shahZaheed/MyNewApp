@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:traffic/screens/admin_home_screen.dart';
 import 'package:traffic/screens/home_screen.dart';
+import 'package:traffic/screens/new_admin_background.dart';
 import 'package:traffic/screens/register_screen.dart';
 import 'package:traffic/screens/root_screen.dart';
 
@@ -26,6 +27,9 @@ class _AdminScreenState extends State<AdminScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery
+        .of(context)
+        .size;
     final _logo = Material(
       shape: const CircleBorder(),
       child: InkWell(
@@ -59,11 +63,12 @@ class _AdminScreenState extends State<AdminScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail_rounded),
+        prefixIcon: Icon(Icons.mail_rounded,color: const Color.fromARGB(255, 2, 45, 80),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: 'Email',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:const Color.fromARGB(255, 2, 45, 80), width: 2 )
         ),
       ),
     );
@@ -86,11 +91,12 @@ class _AdminScreenState extends State<AdminScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.vpn_key),
+        prefixIcon: Icon(Icons.vpn_key,color: const Color.fromARGB(255, 2, 45, 80),),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: 'Password',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(color:const Color.fromARGB(255, 2, 45, 80), width: 2 )
         ),
       ),
     );
@@ -117,44 +123,29 @@ class _AdminScreenState extends State<AdminScreen> {
     );
 
     return Scaffold(
-        appBar: AppBar(
-          /* title: const Text(" Admin Login" ,style:
-            TextStyle(
-              color: const Color.fromARGB(255, 3, 43, 77),
-            ),),*/
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Color.fromARGB(255, 3, 43, 77),
-            ),
-            onPressed: () {
-              //Navigator.push(context, MaterialPageRoute(builder: (context) => RootScreen()));
-              Navigator.of(context).pop();
-            },
-          ),
-          //backgroundColor:const Color.fromARGB(255, 3, 43, 77),
-        ),
         backgroundColor: Colors.white,
         body: Center(
           child: SingleChildScrollView(
-            child: Container(
+            child: AdminBackground(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      /*
                       SizedBox(
                         height: 200,
                         child: Image.asset(
                           'assets/Hawk_eye_facebook.jpg',
                           fit: BoxFit.contain,
                         ),
-                      ),
+                      ),*/
+                      Image.asset('assets/svgimages/police.PNG',height: size.height*0.35,),
                       SizedBox(
-                        height: 25,
+                        height: 20,
                         child: Text(
                           "Admin Login",
                           style: TextStyle(
@@ -164,15 +155,15 @@ class _AdminScreenState extends State<AdminScreen> {
                       ),
                       emailField,
                       SizedBox(
-                        height: 25,
+                        height: 20,
                       ),
                       passwordField,
                       SizedBox(
-                        height: 25,
+                        height: 20,
                       ),
                       loginBtn,
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
