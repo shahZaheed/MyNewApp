@@ -35,12 +35,14 @@ class _RootScreenState extends State<RootScreen> {
       ),
     );
     final _login = Material(
-      elevation: 10,
+      elevation: 20,
       borderRadius: BorderRadius.circular(30),
       //color:  Color(0xA3CC02D8),
-      color:  Color(0x94E60BF4),
+      //color:  Color(0x94E60BF4),
+      color:  Color(0x8B860590),
+
       child: MaterialButton(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(15.0),
         minWidth: double.infinity,
         onPressed: () {
           Navigator.push(
@@ -54,11 +56,12 @@ class _RootScreenState extends State<RootScreen> {
       ),
     );
     final _singup = Material(
-      elevation: 15,
+      elevation: 20,
       borderRadius: BorderRadius.circular(30),
-      color: const  Color(0xD0CC02D8),
+      color:  Color(0xBE860590),
+
       child: MaterialButton(
-        padding: const EdgeInsets.all(10.0),
+        padding: const  EdgeInsets.all(15.0),
         minWidth: double.infinity,
         onPressed: () {
           Navigator.push(context,
@@ -75,11 +78,13 @@ class _RootScreenState extends State<RootScreen> {
       elevation: 20,
       shadowColor: const Color.fromARGB(255, 2, 45, 80),
       borderRadius: BorderRadius.circular(30),
-      color: const Color(0xE4860590),
+      color:  Color(0xE4860590),
+
       child: MaterialButton(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(15.0),
         minWidth: double.infinity,
         onPressed: () {
+          
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AdminScreen()));
         },

@@ -117,9 +117,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.call,color: Color(0xA3CC02D8),),
-        contentPadding: EdgeInsets.fromLTRB(25, 20, 25, 20),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Phone Number",
         focusedBorder: OutlineInputBorder(
+
             borderRadius: BorderRadius.circular(15.0),
             borderSide: BorderSide(color:Color(0xA3CC02D8), width: 2 )
         ),
@@ -272,8 +273,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //signUp button
     final signUpButton = Material(
-      elevation: 10,
-      color: Color(0xA3CC02D8),
+      elevation: 20,
+      color:  Color(0xBE860590),
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -331,14 +332,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           color: const Color.fromARGB(255, 3, 43, 77),
                         ),
                       ),*/
-                      Image.asset('assets/svgimages/noparking.jpg',height: size.height*0.35,),
+                      Image.asset('assets/homesvgicons/safety.png',height:300,width: double.infinity,),
 
                       SizedBox(
-                        height: 10,
+                        height: 25,
                       ),
                       firstNameField,
                       SizedBox(
-                        height: 10,
+                        height: 25,
                       ),
                       lastNameField,
                       SizedBox(
@@ -431,15 +432,52 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.phoneNumber = phoneController.text;
     userModel.vehicleNumber = vehicleNumberController.text;
     userModel.licenseNumber = licenseNumberController.text;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.grey,
+          child: Container(
+            height: 80,
+            width: 100,
+            //color: Color(0x3AEEE6F1),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
 
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .set(userModel.toMap());
-    Fluttertoast.showToast(msg: "Account created successfully..");
-    Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-        (route) => false);
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircularProgressIndicator(color: Colors.purple,),
+                  SizedBox(width: 20,),
+                  Text("SignUp Successful...",style: TextStyle(color: Colors.purple,fontWeight: FontWeight.bold),),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+    Future.delayed(new Duration(seconds: 3), () async{
+      //pop dialog
+      try {
+        await firebaseFirestore
+            .collection("users")
+            .doc(user.uid)
+            .set(userModel.toMap());
+        Fluttertoast.showToast(msg: "Account created successfully..");
+        Navigator.pushAndRemoveUntil(
+            (context),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+                (route) => false);
+      } catch (error) {
+        Fluttertoast.showToast(msg: "Please Register");
+      }
+
+
+    }
+    );
+
+
   }
 }

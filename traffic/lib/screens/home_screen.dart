@@ -1,11 +1,14 @@
 //import 'dart:ffi';
 //import 'dart:html';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:traffic/model/user_model.dart';
-import 'package:traffic/screens/login_screen.dart';
+import 'package:traffic/screens/cam_screen.dart';
+import 'package:traffic/screens/home.dart';
+
+import 'package:traffic/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,84 +18,72 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  User? user = FirebaseAuth.instance.currentUser;
-  UserModel loggedInUser = UserModel();
+
+
+  late List<Widget> _pages;
+  late Widget _homeScreen;
+  late Widget _camScreen;
+  late Widget _settingsScreen;
+  late int currentIndex;
+  late Widget _currentPage;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      loggedInUser = UserModel.fromMap(value.data());
-      setState(() {});
+    _homeScreen = const Home();
+    _camScreen = const CamScreen();
+    _settingsScreen = SettingsScreen(changePage: _changeTab);
+    _pages = [ _camScreen,_homeScreen, _settingsScreen];
+   currentIndex=1;
+    _currentPage = _homeScreen;
+  }
+
+  void _changeTab(int index) {
+    setState(() {
+      currentIndex = index;
+      _currentPage = _pages[index];
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Welcome ${loggedInUser.firstName}",
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-          //textAlign: TextAlign.center,
-        ),
-        centerTitle: true,
 
-        //backgroundColor: Colors.transparent,
-        backgroundColor: Color.fromARGB(255, 3, 43, 77),
 
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.white,
-            size: 40,
+      body: _currentPage,
+      bottomNavigationBar: ConvexAppBar(
+        elevation: 10,
+          //activeColor: Colors.purple,
+          color: Colors.white,
+          backgroundColor: Color(0xA34450F1),
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+
+              Color(0xF64450F1),
+              Color(0xF4CC02D8),
+            ]
+
           ),
-          onPressed: () {
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => RootScreen()));
-            //Navigator.of(context).pop();
+          initialActiveIndex: 1,
+          onTap: (index) {
+            _changeTab(index);
           },
-        ),
-        //backgroundColor:const Color.fromARGB(255, 3, 43, 77),
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
+
+          items: [
+            TabItem(icon: Icons.camera_alt, title: 'camera',),
+            TabItem(icon: Icons.home, title: 'Home'),
+            TabItem(icon: Icons.settings, title: 'Settings'),
+          ]),
+      drawer: Drawer(
+        child: Container(
+          margin: const EdgeInsets.only(top: 20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "welcome back",
-                style:
-                    TextStyle(fontWeight: FontWeight.w600, color: Colors.red),
-              ),
-              Text(
-                "${loggedInUser.emailId} ${loggedInUser.lastName} ${loggedInUser.firstName}",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600, color: Colors.blueAccent),
-              ),
-              Text(
-                "email ",
-                style:
-                    TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              ActionChip(
-                label: const Text("logout"),
-                onPressed: () {
-                  logout(context);
-                },
-              )
+              _navigationItemListTitle( 0),
+              _navigationItemListTitle( 1),
+              _navigationItemListTitle( 2),
             ],
           ),
         ),
@@ -100,9 +91,21 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()));
+  Widget _navigationItemListTitle( int index) {
+    return ListTile(
+
+      onTap: () {
+        Navigator.pop(context);
+        _changeTab(index);
+      },
+    );
   }
+
+
 }
+
+
+
+
+
+/*I*/

@@ -107,8 +107,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final loginBtn = Material(
-      elevation: 10,
-      color: Color(0xA3CC02D8),
+      elevation: 20,
+      color:  Color(0xBE860590),
       borderRadius: BorderRadius.circular(30),
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -212,6 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //singIn fun
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
+
       /*final _userList = 
           await _auth.fetchSignInMethodsForEmail(emailController.text);
         
@@ -221,17 +222,49 @@ class _LoginScreenState extends State<LoginScreen> {
               MaterialPageRoute(builder: ((context) => RegistrationScreen())));
           
         }*/
-      try {
-        await _auth
-            .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) => {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: ((context) => HomeScreen()))),
-                  Fluttertoast.showToast(msg: "Login successful"),
-                });
-      } catch (error) {
-        Fluttertoast.showToast(msg: "Please Register");
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.grey,
+            child: Container(
+              height: 80,
+              width: 100,
+              //color: Color(0x3AEEE6F1),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircularProgressIndicator(color: Colors.purple,),
+                    SizedBox(width: 20,),
+                    Text("Login Successful...",style: TextStyle(color: Colors.purple,fontWeight: FontWeight.bold),),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+      Future.delayed(new Duration(seconds: 3), () async{
+        //pop dialog
+        try {
+          await _auth
+              .signInWithEmailAndPassword(email: email, password: password)
+              .then((uid) => {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: ((context) => HomeScreen()))),
+            Fluttertoast.showToast(msg: "Login successful"),
+          });
+        } catch (error) {
+          Fluttertoast.showToast(msg: "Please Register");
+        }
+
+
       }
+      );
     }
   }
 }

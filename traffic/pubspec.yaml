@@ -27,10 +27,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  image_picker: ^0.8.5
+  convex_bottom_bar: ^3.0.0
   cloud_firestore: ^3.1.13
   cupertino_icons: ^1.0.2
   firebase_auth: ^3.3.16
   firebase_core: ^1.15.0
+  firebase_storage: ^10.2.14
   flutter:
     sdk: flutter
   fluttertoast: ^8.0.9
@@ -41,12 +44,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
 flutter:
 
   # The following line ensures that the Material Icons font is
+
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
@@ -70,12 +75,24 @@ flutter:
     - assets/svgimages/n3.png
     - assets/svgimages/n4.png
     - assets/svgimages/top.PNG
-    - - assets/svgimages/car.jpg
+    - assets/svgimages/car.jpg
     - assets/svgimages/twopeople.jpg
-    - assets/svgimages/noparking.jpg
     - assets/svgimages/2people.jpg
     - assets/svgimages/police.PNG
     - assets/svgimages/user.png
+    - assets/svgimages/hometop.png
+    - assets/svgimages/hometop1.png
+    - assets/svgimages/hometop3.png
+    - assets/svgimages/avatar.PNG
+    - assets/homesvgicons/accident.png
+    - assets/homesvgicons/paychallan.png
+    - assets/homesvgicons/policestation.png
+    - assets/homesvgicons/safety.png
+    - assets/homesvgicons/stolen.png
+    - assets/homesvgicons/stolen1.png
+    - assets/homesvgicons/safety and rules.png
+    - assets/homesvgicons/helmet.PNG
+
 
 
 
